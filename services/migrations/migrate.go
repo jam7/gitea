@@ -331,6 +331,10 @@ func migrateRepository(ctx context.Context, doer *user_model.User, downloader ba
 
 		for i := 1; ; i++ {
 			issues, isEnd, err := downloader.GetIssues(i, issueBatchSize)
+			isEnd = false
+			if len(issues) == 0 {
+				break;
+			}
 			if err != nil {
 				if !base.IsErrNotSupported(err) {
 					return err
@@ -385,6 +389,10 @@ func migrateRepository(ctx context.Context, doer *user_model.User, downloader ba
 		prBatchSize := uploader.MaxBatchInsertSize("pullrequest")
 		for i := 1; ; i++ {
 			prs, isEnd, err := downloader.GetPullRequests(i, prBatchSize)
+			isEnd = false
+			if len(prs) == 0 {
+				break;
+			}
 			if err != nil {
 				if !base.IsErrNotSupported(err) {
 					return err
@@ -465,6 +473,10 @@ func migrateRepository(ctx context.Context, doer *user_model.User, downloader ba
 		log.Trace("migrating comments")
 		for i := 1; ; i++ {
 			comments, isEnd, err := downloader.GetAllComments(i, commentBatchSize)
+			isEnd = false
+			if len(comments) == 0 {
+				break;
+			}
 			if err != nil {
 				return err
 			}
