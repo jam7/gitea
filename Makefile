@@ -37,7 +37,7 @@ GO_LICENSES_PACKAGE ?= github.com/google/go-licenses@v1.6.0
 GOVULNCHECK_PACKAGE ?= golang.org/x/vuln/cmd/govulncheck@v1.0.1
 ACTIONLINT_PACKAGE ?= github.com/rhysd/actionlint/cmd/actionlint@v1.6.25
 
-DOCKER_IMAGE ?= gitea/gitea
+DOCKER_IMAGE ?= jam7/gitea
 DOCKER_TAG ?= latest
 DOCKER_REF := $(DOCKER_IMAGE):$(DOCKER_TAG)
 
@@ -1022,7 +1022,8 @@ generate-manpage:
 
 .PHONY: docker
 docker:
-	docker build --disable-content-trust=false -t $(DOCKER_REF) .
+	docker build -t $(DOCKER_REF) .
+#	docker build --disable-content-trust=false -t $(DOCKER_REF) .
 # support also build args docker build --build-arg GITEA_VERSION=v1.2.3 --build-arg TAGS="bindata sqlite sqlite_unlock_notify"  .
 
 # This endif closes the if at the top of the file
